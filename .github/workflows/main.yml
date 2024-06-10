@@ -21,6 +21,6 @@ jobs:
       uses: joonvena/robotframework-docker-action@v1.0
       with:
         browser: 'chrome'
-        robot_threads: 2
+        robot_threads: ${{ github.event.inputs.threads }}
         robot_tests_dir: tests
         robot_reports_dir: logs
