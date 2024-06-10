@@ -24,15 +24,15 @@ jobs:
       run: |
         # Add your test execution command here
         # For example, if you're using Robot Framework:
-        robot -d logs tests
+        robot -d logs tests/
 
     - name: Shutdown Selenium Grid
       run: |
         docker-compose -f docker-compose.yml down
 
-      - name: Archive Test Results
-        if: always()
-        uses: actions/upload-artifact@v2
-        with:
-          name: test-results
-          path: output/
+    - name: Archive Test Results
+      if: always()
+      uses: actions/upload-artifact@v2
+      with:
+        name: test-results
+        path: output/
