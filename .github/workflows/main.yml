@@ -1,4 +1,4 @@
-name: Build Release for Dev1
+name: Testrun 2 Threads
 
 on: [workflow_dispatch]
 
