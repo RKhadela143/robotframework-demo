@@ -22,5 +22,6 @@ jobs:
       with:
         browser: 'chrome'
         robot_threads: ${{ github.event.inputs.threads }}
+        pabot_options: '--testlevelsplit'
         robot_tests_dir: tests
         robot_reports_dir: logs
