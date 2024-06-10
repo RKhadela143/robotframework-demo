@@ -8,32 +8,27 @@ on:
 jobs:
   test:
     runs-on: ubuntu-latest
+    services:
+      docker:
+        image: docker:19.03.12
+        options: --privileged
     steps:
-      - name: Checkout code
-        uses: actions/checkout@v2
+    - name: Checkout code
+      uses: actions/checkout@v2
 
-      # - name: Set up Docker Buildx
-      #   uses: docker/setup-buildx-action@v1
+    - name: Set up Docker Compose
+      run: |
+        docker-compose -f docker-compose.yml up -d
 
-      # - name: Build Docker image
-      #   run: docker build -t robot-tests .
+    - name: Execute tests
+      run: |
+        # Add your test execution command here
+        # For example, if you're using Robot Framework:
+        robot -d logs tests/
 
-      - name: Start Selenium Grid and Run Tests
-        run: |
-          docker-compose up --abort-on-container-exit
-      
-      - name: Robot Framework
-        uses: joonvena/robotframework-docker-action@v1.0
-        with:
-          browser: 'chrome'
-          robot_threads: ${{ github.event.inputs.threads }}
-          pabot_options: '--testlevelsplit'
-          robot_tests_dir: tests
-          robot_reports_dir: logs
-
-      - name: Start Selenium Grid and Run Tests
-        run: |
-          docker-compose down
+    - name: Shutdown Selenium Grid
+      run: |
+        docker-compose -f docker-compose.yml down
 
       - name: Archive Test Results
         if: always()
