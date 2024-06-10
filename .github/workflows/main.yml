@@ -26,8 +26,9 @@ jobs:
         robot_tests_dir: tests
         robot_reports_dir: logs
 
-    - name: Upload Log Folder
-      uses: actions/upload-artifact@v3
+    - name: Archive Test Results
+      if: always()
+      uses: actions/upload-artifact@v2
       with:
-        name: test-logs
-        path: logs/
+        name: test-results
+        path: output/
