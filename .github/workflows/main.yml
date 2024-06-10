@@ -17,3 +17,4 @@ jobs:
         browser: 'chrome'
         robot_threads: 2
         robot_tests_dir: tests
+        robot_reports_dir: logs
