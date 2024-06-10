@@ -15,6 +15,10 @@ jobs:
     steps:
     - name: Checkout code
       uses: actions/checkout@v2
+    
+    - name: install packages
+      run: 
+        pip install --no-cache-dir -r requirements.txt
 
     - name: Set up Docker Compose
       run: |
