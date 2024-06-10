@@ -11,7 +11,7 @@ Test Teardown       Teardown
 
 *** Keywords ***
 Setup
-    Open Browser    https://www.google.com    chrome    remote_url=http://localhost:4444/wd/hub
+    Open Browser    https://www.google.com    chrome    #remote_url=http://localhost:4444/wd/hub
     Maximize Browser Window
 
 Teardown
