@@ -25,3 +25,9 @@ jobs:
         pabot_options: '--testlevelsplit'
         robot_tests_dir: tests
         robot_reports_dir: logs
+
+    - name: Upload Log Folder
+      uses: actions/upload-artifact@v3
+      with:
+        name: test-logs
+        path: logs/
