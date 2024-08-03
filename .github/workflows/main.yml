@@ -1,0 +1,34 @@
+name: Robot Testrun
+
+on: 
+  workflow_dispatch:
+    inputs:
+      threads:
+        type: number
+        required: true
+        default: 2
+
+jobs:
+  run-robot-framework-tests:
+    runs-on: ubuntu-latest
+    name: Run Robot Framework Tests
+
+    steps:
+    - name: Checkout
+      uses: actions/checkout@v2
+
+    - name: Robot Framework
+      uses: joonvena/robotframework-docker-action@v1.0
+      with:
+        browser: 'chrome'
+        robot_threads: ${{ github.event.inputs.threads }}
+        pabot_options: '--testlevelsplit'
+        robot_tests_dir: tests
+        robot_reports_dir: logs
+
+    - name: Archive Test Results
+      if: always()
+      uses: actions/upload-artifact@v2
+      with:
+        name: test-results
+        path: output/

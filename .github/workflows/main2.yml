@@ -1,0 +1,42 @@
+name: Robot Framework Tests
+
+on:
+  workflow_dispatch:
+    branches:
+      - main
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    services:
+      docker:
+        image: docker:19.03.12
+        options: --privileged
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v2
+    
+    - name: install packages
+      run: 
+        pip install --no-cache-dir -r requirements.txt
+
+    - name: Set up Docker Compose
+      run: |
+        docker-compose -f docker-compose.yml up -d
+
+    - name: Execute tests
+      run: |
+        # Add your test execution command here
+        # For example, if you're using Robot Framework:
+        robot -d logs tests/
+
+    - name: Shutdown Selenium Grid
+      run: |
+        docker-compose -f docker-compose.yml down
+
+    - name: Archive Test Results
+      if: always()
+      uses: actions/upload-artifact@v2
+      with:
+        name: test-results
+        path: output/
