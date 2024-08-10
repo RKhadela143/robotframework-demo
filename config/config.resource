@@ -1,4 +1,5 @@
 *** Settings ***
+Library     Collections
 Library     SeleniumLibrary
 Resource    app_variables.resource
 Resource    browser_details.resource

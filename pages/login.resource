@@ -3,53 +3,60 @@ Resource    ../config/common.resource
 
 
 *** Variables ***
-${username_ip}              id=user-name
-${password_ip}              id=password
-${login_btn}                id=login-button
-${hamburger_menu}           css=div.bm-burger-button
-${logout_sidebar_link}      id=logout_sidebar_link
-${error_msg}                css=[data-test="error"]
-${app_logo}                 css=div.app_logo
+${USERNAME_IP}              id=user-name
+${PASSWORD_IP}              id=password
+${LOGIN_BTN}                id=login-button
+${HAMBURGER_MENU}           css=div.bm-burger-button
+${LOGOUT_SIDEBAR_LINK}      id=logout_sidebar_link
+${ERROR_MSG}                css=[data-test="error"]
+${APP_LOGO}                 css=div.app_logo
 
 
 *** Keywords ***
 Enter Username
+    [Documentation]    Enter username
     [Arguments]    ${username}
-    Input Text    ${username_ip}    ${username}
+    Input Text    ${USERNAME_IP}    ${username}
 
 Enter Password
+    [Documentation]    Enter password
     [Arguments]    ${password}
-    Input Password    ${password_ip}    ${password}
+    Input Password    ${PASSWORD_IP}    ${password}
 
 Click Login Button
-    Click Element    ${login_btn}
+    [Documentation]    Click login button
+    Click Element    ${LOGIN_BTN}
 
 Logout
-    Click Element    ${hamburger_menu}
-    Wait Until Element Is Visible    ${logout_sidebar_link}    timeout=${3}
-    Click Element    ${logout_sidebar_link}
+    [Documentation]    Logout
+    Click Element    ${HAMBURGER_MENU}
+    Wait Until Element Is Visible    ${LOGOUT_SIDEBAR_LINK}    timeout=${3}
+    Click Element    ${LOGOUT_SIDEBAR_LINK}
 
 Login
+    [Documentation]    login with username and password
     [Arguments]    ${username}    ${password}
     Enter Username    ${username}
     Enter Password    ${password}
     Click Login Button
-    Wait Until Element Is Visible    ${app_logo}    timeout=${3}
+    Wait Until Element Is Visible    ${APP_LOGO}    timeout=${3}
 
-Login With Valid Username and Password
+Login With Valid Username And Password
+    [Documentation]    Login with valid username and password
     [Arguments]    ${username}    ${password}
     Login    ${username}    ${password}
     Logout
 
-Login With Invalid Username and Password
+Login With Invalid Username And Password
+    [Documentation]    Login with invalid username and password
     [Arguments]    ${username}    ${password}
     Enter Username    ${username}
     Enter Password    ${password}
     Click Login Button
     IF    '${username}' == '${LOCKED_USERNAME}'
-        Element Text Should Be    ${error_msg}    Epic sadface: Sorry, this user has been locked out.
+        Element Text Should Be    ${ERROR_MSG}    Epic sadface: Sorry, this user has been locked out.
     ELSE
         Element Text Should Be
-        ...    ${error_msg}
+        ...    ${ERROR_MSG}
         ...    Epic sadface: Username and password do not match any user in this service
     END
