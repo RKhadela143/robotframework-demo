@@ -53,7 +53,7 @@ Login With Invalid Username And Password
     Enter Username    ${username}
     Enter Password    ${password}
     Click Login Button
-    IF    '${username}' == '${LOCKED_USERNAME}'
+    IF    '${username}' == '${LOCKED_USERNAME}' and '${password}' != '${SPACE}'
         Element Text Should Be    ${ERROR_MSG}    Epic sadface: Sorry, this user has been locked out.
     ELSE
         Element Text Should Be
