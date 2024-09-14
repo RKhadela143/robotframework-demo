@@ -38,4 +38,4 @@ Verify Login With Invalid Username And Password
     [Template]    Login With Invalid Username And Password
 
     ${LOCKED_USERNAME}    ${PASSWORD}
-    ${USERNAME}    ${INVALID_PASSWORD}
+    ${USERNAME}    ${INVALID_PASSWORD1}
