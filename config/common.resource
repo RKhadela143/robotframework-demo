@@ -1,6 +1,7 @@
 *** Settings ***
-Library     SeleniumLibrary
 Resource    config.resource
+
+
 
 
 *** Keywords ***
@@ -34,3 +35,5 @@ Get Current Year
     ${current_date}    Get Current Date    result_format=%Y-%m-%d
     ${year}    Set Variable    ${current_date[0:4]}
     RETURN    ${year}
+
+

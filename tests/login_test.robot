@@ -10,7 +10,7 @@ Suite Teardown      Teardown
 *** Test Cases ***
 Verify Login With Valid Username And Password
     [Documentation]    Verify that a registered user can successfully log in with valid credentials
-    [Template]    Login With Valid Username And Password
+    [Template]    Login
 
     ${USERNAME}    ${PASSWORD}
     ${LOCKED_USERNAME}    ${PASSWORD}
@@ -33,9 +33,26 @@ Verify Login With Valid Username And Invalid Password
     ${PERFORMANCE_GLITCH_USERNAME}    ${EMPTY}
     ${PERFORMANCE_GLITCH_USERNAME}    ${SPACE}
 
-Verify Login With Invalid Username And Password
+Verify Login With Invalid Username And Valid Password
     [Documentation]    Verify that a user cannot log in with invalid or empty credentials
     [Template]    Login With Invalid Username And Password
+    ${INVALID_USERNAME}    ${PASSWORD}
 
-    ${LOCKED_USERNAME}    ${PASSWORD}
-    ${USERNAME}    ${INVALID_PASSWORD1}
+Verify Login With Invalid Usernames And Passwords
+    [Documentation]    Verify that user can not login with invalid username and password
+    [Template]    Login With Invalid Username And Password
+    ${INVALID_USERNAME}    ${INVALID_PASSWORD3}
+    ${EMPTY}    ${PASSWORD}
+    ${SPACE}    ${EMPTY}
+    ${SPACE}    ${PASSWORD}
+    ${EMPTY}    ${EMPTY}
+
+Verify Logout From The Swag Labs
+    [Documentation]    Verify that user should be able to logout from system
+    [Template]    Logout From Swag Labs
+    ${USERNAME}    ${PASSWORD}
+    ${PROBLEM_USERNAME}    ${PASSWORD}
+    ${PERFORMANCE_GLITCH_USERNAME}    ${PASSWORD}
+
+
+

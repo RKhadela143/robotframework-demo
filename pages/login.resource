@@ -6,8 +6,6 @@ Resource    ../config/common.resource
 ${USERNAME_IP}              id=user-name
 ${PASSWORD_IP}              id=password
 ${LOGIN_BTN}                id=login-button
-${HAMBURGER_MENU}           css=div.bm-burger-button
-${LOGOUT_SIDEBAR_LINK}      id=logout_sidebar_link
 ${ERROR_MSG}                css=[data-test="error"]
 ${APP_LOGO}                 css=div.app_logo
 
@@ -41,20 +39,25 @@ Login
     Click Login Button
     Wait Until Element Is Visible    ${APP_LOGO}    timeout=${3}
 
-Login With Valid Username And Password
-    [Documentation]    Login with valid username and password
+Logout From Swag Labs
+    [Documentation]    Logout from swag labs
     [Arguments]    ${username}    ${password}
     Login    ${username}    ${password}
     Logout
-
+    
 Login With Invalid Username And Password
     [Documentation]    Login with invalid username and password
     [Arguments]    ${username}    ${password}
+    Reload Page
     Enter Username    ${username}
     Enter Password    ${password}
     Click Login Button
     IF    '${username}' == '${LOCKED_USERNAME}' and '${password}' != '${SPACE}'
         Element Text Should Be    ${ERROR_MSG}    Epic sadface: Sorry, this user has been locked out.
+    ELSE IF    '${username}' == '${EMPTY}'
+        Element Text Should Be    ${ERROR_MSG}    Epic sadface: Username is required
+    ELSE IF    '${password}' == '${EMPTY}'
+        Element Text Should Be    ${ERROR_MSG}    Epic sadface: Password is required
     ELSE
         Element Text Should Be
         ...    ${ERROR_MSG}

@@ -1,6 +1,7 @@
 *** Settings ***
 Library     Collections
 Library     DateTime
+Library     String
 Library     SeleniumLibrary
 Library     ../lib/python_lib.py
 Resource    app_variables.resource

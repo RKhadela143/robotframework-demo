@@ -5,10 +5,23 @@ Resource            ../pages/products.resource
 
 Suite Setup         Open Browser To Login Page
 Suite Teardown      Teardown
-Test Setup          Navigate To Products Page
 
 
 *** Test Cases ***
+Verify Product Title Present
+    [Documentation]    Verify that correct title should be present on the page
+    [Template]    Check Correct Product Title Present
+    ${USERNAME}    ${PASSWORD}
+    ${PROBLEM_USERNAME}    ${PASSWORD}
+    ${PERFORMANCE_GLITCH_USERNAME}    ${PASSWORD}
+
+Verify Product Sort Dropdown Present
+    [Documentation]    Verify that product sort option visible
+    [Template]    Check Product Sort Option Visible
+    ${USERNAME}    ${PASSWORD}
+    ${PROBLEM_USERNAME}    ${PASSWORD}
+    ${PERFORMANCE_GLITCH_USERNAME}    ${PASSWORD}
+
 Verify Product List Page Loads Correctly
     [Documentation]    Check for header, footer, secondary header, inventory cards presence
     Header Element Presence Check
