@@ -19,13 +19,12 @@ ${INVENTORY_PRICE}              css=div.inventory_item_price
 ${INVENTORY_DESC}               css=div.inventory_item_desc
 ${ADD_TO_CART}                  xpath=//div[@class="inventory_item"]//button
 ${SHOPPING_CART_BADGE}          css=.shopping_cart_badge
-${SHOPPING_CART}                class=shopping_cart_link
 
 ${CHECKOUT_BTN}                 id=checkout
 ${HAMBURGER_MENU}               id=react-burger-menu-btn
 ${LOGOUT_SIDEBAR_LINK}          id=logout_sidebar_link
 ${RESET_SIDEBAR_LINK}           id=reset_sidebar_link
-${CROSS_BTN}                    id=react-burger-cross-btn
+${CROSS_BTN}                    css=button[id="react-burger-cross-btn"]
 # Product Details Page
 ${BACK_TO_PRODUCTS}             id=back-to-products
 ${INVENTORY_DETAILS_IMG}        css=img.inventory_details_img
@@ -58,13 +57,8 @@ Get Items Titles
 Get Item Title By Index
     [Documentation]    Get item title by index
     [Arguments]    ${index}
-    VAR    @{item_titles}    @{EMPTY}
-    @{titles}    Get WebElements    ${INVENTORY_NAME}
-    FOR    ${title}    IN    @{titles}
-        ${text}    Get Text    ${title}
-        Append To List    ${item_titles}    ${text}
-    END
-    RETURN    ${item_titles}[${index}]
+    ${title}    Get Text    xpath=(//div[@data-test="inventory-item-name"])[${index}]
+    RETURN    ${title}
 
 Get Items Prices
     [Documentation]    Get all items prices list
@@ -80,27 +74,15 @@ Get Items Prices
 Get Items Price By Index
     [Documentation]    Get item price by index
     [Arguments]    ${index}
-    VAR    @{item_prices}    @{EMPTY}
-    @{prices}    Get WebElements    ${INVENTORY_PRICE}
-    FOR    ${price}    IN    @{prices}
-        ${text}    Get Text    ${price}
-        ${text}    Remove String    ${text}    $
-        Append To List    ${item_prices}    ${text}
-    END
-    RETURN    ${item_prices}[${index}]
+    ${price}    Get Text    xpath=(//div[@data-test="inventory-item-price"])[${index}]
+    ${price}    Remove String    ${price}    $
+    RETURN    ${price}
 
 Add Item To Cart By Index
     [Documentation]    Add item to cart by index
     [Arguments]    ${index}
-    VAR    @{item_prices}    @{EMPTY}
-    @{prices}    Get WebElements    (${ADD_TO_CART})[${index}]
-    FOR    ${price}    IN    @{prices}
-        ${text}    Get Text    ${price}
-        ${text}    Remove String    ${text}    $
-        Append To List    ${item_prices}    ${text}
-    END
-    RETURN    ${item_prices}[${index}]
-
+    Click Element    xpath=(//div[@class="inventory_item"]//button)[${index}]
+    
 Select Sort By Text
     [Documentation]    Select sort by text
     [Arguments]    ${text}
@@ -115,7 +97,7 @@ Reset App State
     [Documentation]    Reset app
     Click Element    ${HAMBURGER_MENU}
     Click Element    ${RESET_SIDEBAR_LINK}
-    Click Button    ${CROSS_BTN}
+    Wait Until Keyword Succeeds    5    2s    Click Element    ${CROSS_BTN}
 
 Access Cart
     [Documentation]    access cart

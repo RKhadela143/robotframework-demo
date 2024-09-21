@@ -12,9 +12,9 @@ Resource    env_details.resource
 *** Keywords ***
 Open Browser To Login Page
     [Documentation]    Open the browser and navigates to the login page
-
     Open Browser    ${ENV_URL}    ${BROWSER}    # remote_url=http://localhost:4444/wd/hub
     Maximize Browser Window
+    Set Selenium Implicit Wait    ${5}
 
 Teardown
     [Documentation]    Close browser window

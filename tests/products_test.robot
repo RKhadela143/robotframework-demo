@@ -31,6 +31,7 @@ Verify Product List Page Loads Correctly
 
 Verify Product Sorting By Name
     [Documentation]    Check product sorting by name a-z, z-a
+    Login    ${USERNAME}    ${PASSWORD}
     @{name_elms}    Get WebElements    ${INVENTORY_NAME}
     List Selection Should Be    ${PRODUCT_SORT}    az
     @{a_to_z_names}    Get All Text Values    @{name_elms}
@@ -39,6 +40,16 @@ Verify Product Sorting By Name
     @{z_to_a_names}    Get All Text Values    @{name_elms}
     Reverse List    ${z_to_a_names}
     Lists Should Be Equal    ${a_to_z_names}    ${z_to_a_names}
+
+Verify Product Sorting By Price
+    [Documentation]    Check product sorting by price low to high, high to low
+    Login    ${USERNAME}    ${PASSWORD}
+    Select From List By Value    ${PRODUCT_SORT}    lohi
+    @{l_to_h_prices}    Get Items Prices
+    Select From List By Value    ${PRODUCT_SORT}    hilo
+    @{h_to_l_prices}    Get Items Prices
+    Reverse List    ${h_to_l_prices}
+    Lists Should Be Equal    ${l_to_h_prices}    ${h_to_l_prices}
 
 Verify Products Detail Page By Clicking On Product
     [Documentation]    Verify that product details are accessible by clicking on a product.

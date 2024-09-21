@@ -46,6 +46,8 @@ Fullfill Checkout Information
 Get Item Total
     [Documentation]    Get item total
     ${item_total}    Get Text    ${SUBTOTAL}
+    ${item_total}    Get Regexp Matches    ${item_total}    \\d+\\.\\d+
+    ${item_total}    Evaluate    float(${item_total}[0])
     RETURN    ${item_total}
 
 Finish Overview
